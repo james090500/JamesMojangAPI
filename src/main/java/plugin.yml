@@ -1,0 +1,5 @@
+name: APIManager
+description: APIManager
+author: james090500
+version: 0.0.1
+main: com.james090500.APIManager.Main
