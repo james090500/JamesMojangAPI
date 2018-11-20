@@ -1,5 +1,5 @@
-name: APIManager
-description: APIManager
+name: JamesAPIManager
+description: JamesAPIManager
 author: james090500
-version: 0.0.1
+version: ${project.version}
 main: com.james090500.APIManager.Main

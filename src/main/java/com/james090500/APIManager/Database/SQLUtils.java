@@ -8,10 +8,12 @@ import javax.sql.rowset.RowSetProvider;
 
 public class SQLUtils {
 	
-	public static void updateSQL(String statement, String first, String second) throws Exception {
+	public static void updateSQL(String statement, String first, String second, int expire) throws Exception {
+		String time = Long.toString((System.currentTimeMillis() / 1000) + expire);
 		PreparedStatement update = DBManager.getConnection().prepareStatement(statement);
      	update.setString(1, first);
      	update.setString(2, second);
+     	update.setString(3, time);
      	update.execute();
 	}
 	

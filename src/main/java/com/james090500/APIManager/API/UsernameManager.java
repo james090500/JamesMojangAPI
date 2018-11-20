@@ -2,6 +2,7 @@ package com.james090500.APIManager.API;
 
 import javax.sql.rowset.CachedRowSet;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -30,13 +31,14 @@ public class UsernameManager {
 		if(SQLUtils.needsUpdating(crs)) {
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.USERNAME_GETTER, uuid));
 			JsonElement usernameJsonEle = new JsonParser().parse(response);
-		    JsonObject  usernameJsonObj = usernameJsonEle.getAsJsonObject();
-		    //To Do handle array
-		    String username = usernameJsonObj.get("id").getAsString();
+		    JsonArray  usernameJsonArr = usernameJsonEle.getAsJsonArray();
+		    JsonObject usernameJsonObj = usernameJsonArr.get(0).getAsJsonObject();
+		    String username = usernameJsonObj.get("name").getAsString();
+		    
 		    if(crs.size() > 1)
-		    	SQLUtils.updateSQL(UPDATE, username, uuid);
+		    	SQLUtils.updateSQL(UPDATE, username, uuid, Settings.USERNAME_EXPIRE);
 		    else
-		    	SQLUtils.insertSQL(INSERT, username, uuid, Settings.USERNAME_EXPIRE);
+		    	SQLUtils.insertSQL(INSERT, uuid, username, Settings.USERNAME_EXPIRE);
 		    return username;
 		}
 		return crs.getString("username");

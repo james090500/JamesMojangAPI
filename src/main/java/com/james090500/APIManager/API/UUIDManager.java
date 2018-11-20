@@ -33,7 +33,7 @@ public class UUIDManager {
 		    JsonObject  uuidJsonObj = uuidJsonEle.getAsJsonObject();
 		    String uuid = uuidJsonObj.get("id").getAsString();
 		    if(crs.size() > 1)
-		    	SQLUtils.updateSQL(UPDATE, uuid, username);
+		    	SQLUtils.updateSQL(UPDATE, uuid, username, Settings.UUID_EXPIRE);
 		    else
 		    	SQLUtils.insertSQL(INSERT, uuid, username, Settings.UUID_EXPIRE);
 		    return uuid;

@@ -1,17 +1,24 @@
 package com.james090500.APIManager;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+import com.james090500.APIManager.API.CacheManager;
+
+public class Main extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		getLogger().info("Enabling James090500's API Manager. This plugin is a dependency and performs no sole action");
+		getPluginLoader().createRegisteredListeners(this, this);
 	}
 	
-	@Override
-	public void onDisable() {
-		getLogger().info("Disabling James090500's API Manager.");
+	/*
+	 * Updates player UUID on join with their username to avoid unneeded API calls.
+	 */
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event) {
+		CacheManager.updateCache(event.getPlayer().getUniqueId().toString().replace("-", ""), event.getPlayer().getName());		
 	}
-	
 }
