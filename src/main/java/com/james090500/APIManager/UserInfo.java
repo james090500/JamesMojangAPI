@@ -15,7 +15,8 @@ public class UserInfo {
 	}
 	
 	public static String getParsedUUID(String username) {
-		return UUIDManager.getUUID(username);
+		String uuid = UUIDManager.getUUID(username);
+		return uuid.substring(0, 8) + "-" + uuid.substring(8, 12) + "-" + uuid.substring(12, 16) + "-" + uuid.substring(16, 20) + "-" + uuid.substring(20, 32);
 	}
 
 }
