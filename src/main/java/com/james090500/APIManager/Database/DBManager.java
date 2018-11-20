@@ -16,7 +16,7 @@ public class DBManager {
 
     static {
     	    	
-    	String sqlFile = "plugins/APIManager/database.db";
+    	String sqlFile = "plugins\\APIManager\\database.db";
     	checkSQLFile(sqlFile);
     	
         config.setJdbcUrl("jdbc:sqlite:" + sqlFile);
@@ -36,8 +36,9 @@ public class DBManager {
         return ds.getConnection();
     }
     
-	private static void checkSQLFile(String sqlFile) {
+	private static void checkSQLFile(String sqlFile) {		
 		File f = new File(sqlFile);
+		f.getParentFile().mkdirs();
 		if(!f.exists()) {
 			try { f.createNewFile(); } catch (IOException e) { e.printStackTrace(); }
 		}

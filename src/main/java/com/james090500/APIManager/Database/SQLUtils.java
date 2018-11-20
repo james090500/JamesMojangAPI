@@ -36,12 +36,14 @@ public class SQLUtils {
      	return crs;		
 	}
 	
-	public static boolean needsUpdating(CachedRowSet crs) throws Exception {
-		if(crs.getString("time") != null) {			
-			if(Long.parseLong(crs.getString("time")) < (System.currentTimeMillis() / 1000)) {
-				return true;
-			} else {
-				return false;
+	public static boolean needsUpdating(CachedRowSet crs) throws Exception {		
+		if(crs.size() == 1) {		
+			while (crs.next()) {
+				if(Long.parseLong(crs.getString("time")) < (System.currentTimeMillis() / 1000)) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		}
 		return true;
