@@ -30,6 +30,9 @@ public class UsernameManager {
 		CachedRowSet crs = SQLUtils.getSQL(SELECT, uuid);
 		if(SQLUtils.needsUpdating(crs)) {
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.USERNAME_GETTER, uuid));
+			if(response.isEmpty()) {
+				return null;
+			}
 			JsonElement usernameJsonEle = new JsonParser().parse(response);
 			if(WebRequest.isRequestLimit(usernameJsonEle)) {
 				return null;

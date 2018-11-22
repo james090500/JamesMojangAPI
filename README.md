@@ -16,4 +16,4 @@ ba4161c0-3a42-496c-8ae0-7d13372f3371
 james090500
 ```
 
-Null will be returned for any query if it is invalid or not a real username/uuid. 
+Null will be returned for any query if it is invalid or not a real username/uuid.

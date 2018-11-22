@@ -29,6 +29,9 @@ public class UUIDManager {
 		CachedRowSet crs = SQLUtils.getSQL(SELECT, username);
 		if(SQLUtils.needsUpdating(crs)) {
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.UUID_GETTER, username));
+			if(response.isEmpty()) {
+				return null;
+			}
 			JsonElement uuidJsonEle = new JsonParser().parse(response);
 			if(WebRequest.isRequestLimit(uuidJsonEle)) {
 				return null;

@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.james090500.APIManager.API.CacheManager;
 
-public class Main extends JavaPlugin implements Listener {
+public class BukkitMain extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
@@ -18,7 +18,7 @@ public class Main extends JavaPlugin implements Listener {
 	 * Updates player UUID on join with their username to avoid unneeded API calls.
 	 */
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
+	public void onJoin(PlayerJoinEvent event) {		
 		CacheManager.updateCache(event.getPlayer().getUniqueId().toString().replace("-", ""), event.getPlayer().getName());		
 	}
 }

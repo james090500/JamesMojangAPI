@@ -2,4 +2,4 @@ name: JamesAPIManager
 description: JamesAPIManager
 author: james090500
 version: ${project.version}
-main: com.james090500.APIManager.BukkitMain
+main: com.james090500.APIManager.BungeeMain
