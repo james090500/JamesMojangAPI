@@ -30,6 +30,9 @@ public class UUIDManager {
 		if(SQLUtils.needsUpdating(crs)) {
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.UUID_GETTER, username));
 			JsonElement uuidJsonEle = new JsonParser().parse(response);
+			if(WebRequest.isRequestLimit(uuidJsonEle)) {
+				return null;
+			}
 		    JsonObject  uuidJsonObj = uuidJsonEle.getAsJsonObject();
 		    String uuid = uuidJsonObj.get("id").getAsString();
 		    if(crs.size() > 1)

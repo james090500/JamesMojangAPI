@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.google.gson.JsonElement;
+
 public class WebRequest {
 	
 	public static String sendGet(String url) {	
@@ -58,6 +60,10 @@ public class WebRequest {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static boolean isRequestLimit(JsonElement json) {
+		return json.getAsJsonObject().get("error").getAsJsonNull() == null;
 	}
 	
 }
