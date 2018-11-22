@@ -1,5 +1,5 @@
 # JamesMojangAPI
-Easy access to Mojang API with built in Caching. Cache lasts until an hour and then is reset. The plugin handles login events to update cache as well to avoid API strain.
+A library for easy access to Mojang's API with built in Caching. Cache lasts until an hour and then is reset. The plugin handles login events to update cache as well to avoid API strain.
 
 Basic Usage
 ```
