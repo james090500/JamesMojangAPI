@@ -17,3 +17,5 @@ james090500
 ```
 
 Null will be returned for any query if it is invalid or not a real username/uuid.
+
+https://www.spigotmc.org/resources/james-mojang-api-manager-library.62649/
