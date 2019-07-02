@@ -27,23 +27,23 @@ public class UUIDManager {
 	
 	private static String getWebUUID(String username) throws Exception {   
 		CachedRowSet crs = SQLUtils.getSQL(SELECT, username);
-		if(SQLUtils.needsUpdating(crs)) {
+		if(SQLUtils.needsUpdating(crs)) {			
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.UUID_GETTER, username));
 			if(response.isEmpty()) {
-				return null;
+				return (crs.size() == 1) ? crs.getString("uuid") : null; 				
 			}
 			JsonElement uuidJsonEle = new JsonParser().parse(response);
-			if(WebRequest.isRequestLimit(uuidJsonEle)) {
-				return null;
+			if(WebRequest.isRequestLimit(uuidJsonEle)) {				
+				return (crs.size() == 1) ? crs.getString("uuid") : null;
 			}
 		    JsonObject  uuidJsonObj = uuidJsonEle.getAsJsonObject();
 		    String uuid = uuidJsonObj.get("id").getAsString();
-		    if(crs.size() > 1)
+		    if(crs.size() == 1)
 		    	SQLUtils.updateSQL(UPDATE, uuid, username, Settings.UUID_EXPIRE);
 		    else
 		    	SQLUtils.insertSQL(INSERT, uuid, username, Settings.UUID_EXPIRE);
 		    return uuid;
-		}
+		}		
 		return crs.getString("uuid");
 	}
 }

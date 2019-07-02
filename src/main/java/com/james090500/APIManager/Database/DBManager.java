@@ -12,10 +12,10 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DBManager {
 
     private static HikariConfig config = new HikariConfig();
-    private static HikariDataSource ds;
-
-    static {
-    	    	
+    
+    private static HikariDataSource hikari;
+    
+    private static void init() {
     	String sqlFile = "plugins\\APIManager\\database.db";
     	checkSQLFile(sqlFile);
     	
@@ -25,15 +25,16 @@ public class DBManager {
         config.addDataSourceProperty("cachePrepStmts" , "true");
         config.addDataSourceProperty("prepStmtCacheSize" , "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit" , "2048");
-        ds = new HikariDataSource(config);
+        hikari = new HikariDataSource(config);                      
         
-        checkSQLContent();
+		checkSQLContent();
     }
     
-    private DBManager() {}
-    
-	public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
+    public static HikariDataSource getHikari(){
+    	if(hikari == null) {
+    		init();
+    	}
+        return hikari;
     }
     
 	private static void checkSQLFile(String sqlFile) {		
@@ -45,8 +46,8 @@ public class DBManager {
 	}
 	
     private static void checkSQLContent() {
-    	try {
-			Statement statement = getConnection().createStatement();
+    	try(Connection connection = getHikari().getConnection()) {
+			Statement statement = connection.createStatement();
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS users(UUID varchar(32), username VARCHAR(17), time varchar(11))");
 		} catch (SQLException e) {
 			e.printStackTrace();

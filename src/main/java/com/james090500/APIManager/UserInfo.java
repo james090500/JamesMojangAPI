@@ -40,7 +40,7 @@ public class UserInfo {
 	/*
 	 * Returns the uuid of the user with dashes
 	 */
-	public static String getParsedUUID(String username) {
+	public static String getParsedUUID(String username) {		
 		String uuid = getUUID(username);
 		return parseUUID(uuid);
 	}

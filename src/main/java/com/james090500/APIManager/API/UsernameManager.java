@@ -31,11 +31,11 @@ public class UsernameManager {
 		if(SQLUtils.needsUpdating(crs)) {
 			String response = WebRequest.sendGet(URLHandler.formatAPI(URLHandler.USERNAME_GETTER, uuid));
 			if(response.isEmpty()) {
-				return null;
+				return (crs.size() == 1) ? crs.getString("username") : null;
 			}
 			JsonElement usernameJsonEle = new JsonParser().parse(response);
 			if(WebRequest.isRequestLimit(usernameJsonEle)) {
-				return null;
+				return (crs.size() == 1) ? crs.getString("username") : null;
 			}
 		    JsonArray  usernameJsonArr = usernameJsonEle.getAsJsonArray();
 		    JsonObject usernameJsonObj = usernameJsonArr.get(0).getAsJsonObject();

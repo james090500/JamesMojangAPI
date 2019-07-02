@@ -62,7 +62,7 @@ public class WebRequest {
 		}
 	}
 	
-	public static boolean isRequestLimit(JsonElement json) {
+	public static boolean isRequestLimit(JsonElement json) {		
 		return json.getAsJsonObject().get("error") == null;
 	}
 	
